@@ -1,20 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: gitops-complete-production-e2e-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      run: nginx
+      run: complete-prodcution-e2e-pipeline
   template:
     metadata:
       labels:
-        run: nginx
+        run: complete-prodcution-e2e-pipeline
     spec:
       containers:
-      - name: nginx
-        image: nginx
+      - name: complete-prodcution-e2e-pipeline
+        image: ay0mikun/complete-prodcution-e2e-pipeline:1.0.0-9
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500"
         ports:
-          - containerPort: 80
-        imagePullPolicy: IfNotPresent
+          - containerPort: 8080
